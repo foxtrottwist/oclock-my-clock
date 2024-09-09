@@ -1,0 +1,27 @@
+.bit-box {
+  background-color: transparent;
+  perspective: 1000px;
+}
+
+.bit-box_content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.bit-box_front,
+.bit-box_back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: #03446a;
+  border: 1px solid #03446a;
+  backface-visibility: hidden;
+}
+
+.bit-box_back {
+  transform: rotateX(180deg);
+}

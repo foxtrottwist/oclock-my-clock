@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Staatliches";
+  src: url("staatliches-regular-webfont.woff2");
+}
+
+html {
+  font-family: "Staatliches";
+}
+
+body {
+  background: slategrey;
+}
