@@ -21,8 +21,8 @@ export function App() {
       </div>
 
       <div className="md:flex justify-center">
-        <div className="md:flex flex-col items-end">
-          <div className="md:flex mb-4 space-x-0.5">
+        <div className="md:flex flex-col items-end gap-4">
+          <div className="md:flex gap-0.5">
             <BitBox flip={flip} />
             <BitBox flip={flip} />
             <BitBox flip={flip} />
@@ -30,7 +30,7 @@ export function App() {
             <BitBox flip={flip} />
           </div>
 
-          <div className="md:flex mb-4 space-x-0.5">
+          <div className="md:flex gap-0.5">
             <BitBox flip={flip} />
             <BitBox flip={flip} />
             <BitBox flip={flip} />
