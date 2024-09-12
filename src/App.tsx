@@ -1,42 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
+import { Node, getBinaryTime } from "./helpers";
+
+const date = new Date();
 
 export function App() {
-  const [flip, set] = useState(false);
+  const [time, setTime] = useState(getBinaryTime);
+
+  useEffect(() => {
+    const handle = setInterval(() => {
+      setTime(getBinaryTime());
+    }, 60 - date.getSeconds());
+
+    return () => {
+      clearInterval(handle);
+    };
+  }, []);
 
   return (
     <>
-      <header className="min-h-48 w-full md:p-0 p-4 text-center">
-        <h1 className="text-9xl">{`O'Clock! My Clock!`}</h1>
+      <header className="min-h-48 w-full p-20 text-center md:text-9xl text-7xl text-slate-800 dark:text-white-smoke">
+        <h1>{`O'Clock! My Clock!`}</h1>
       </header>
 
-      <div className="text-center p-4">
-        <button
-          className="h-10 px-6 font-semibold rounded border border-slate-200 text-slate-900"
-          onClick={() => set((v) => !v)}
-          type="button"
-        >
-          Flip
-        </button>
-      </div>
-
-      <div className="md:flex justify-center">
-        <div className="md:flex flex-col items-end gap-4">
-          <div className="md:flex gap-0.5">
-            <BitBox flip={flip} />
-            <BitBox flip={flip} />
-            <BitBox flip={flip} />
-            <BitBox flip={flip} />
-            <BitBox flip={flip} />
+      <div className="flex justify-center md:p-20">
+        <div className="flex flex-col items-end gap-4">
+          <div className="flex gap-3 md:gap-0.5">
+            <Bit node={time.hours.head} />
           </div>
 
-          <div className="md:flex gap-0.5">
-            <BitBox flip={flip} />
-            <BitBox flip={flip} />
-            <BitBox flip={flip} />
-            <BitBox flip={flip} />
-            <BitBox flip={flip} />
-            <BitBox flip={flip} />
+          <div className="flex gap-3 md:gap-0.5">
+            <Bit node={time.minutes.head} />
           </div>
         </div>
       </div>
@@ -44,19 +38,24 @@ export function App() {
   );
 }
 
-export function BitBox({ flip }: { flip: boolean }) {
-  const style = flip ? { transform: "rotateX(180deg)" } : undefined;
+function Bit({ node }: { node?: Node<number> }) {
+  if (!node) return;
+
+  const style = node.data ? { transform: "rotateX(180deg)" } : undefined;
 
   return (
-    <figure className="rounded-xl h-20 w-16 bit-box" style={style}>
-      <div className="bit-box_content" style={style}>
-        <div className="md:flex items-center justify-center text-5xl font-medium bg-slate-100 rounded p-8 md:p-0 bit-box_front">
-          1
+    <>
+      <figure
+        className="h-10 w-6 md:h-36 md:w-24 bg-white-smoke dark:bg-slate-700 text-4xl md:text-7xl font-medium text-slate-800 dark:text-white-smoke bit-box"
+        style={style}
+      >
+        <div className="bit-box_content" style={style}>
+          <div className="flex items-center justify-center bit-front">0</div>
+          <div className="flex items-center justify-center bit-back">1</div>
         </div>
-        <div className="md:flex items-center justify-center text-5xl font-medium bg-slate-100 rounded p-8 md:p-0 bit-box_back">
-          0
-        </div>
-      </div>
-    </figure>
+      </figure>
+
+      <Bit node={node.next} />
+    </>
   );
 }

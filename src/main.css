@@ -9,6 +9,6 @@ html {
   font-family: "Staatliches";
 }
 
-body {
-  background: slategrey;
+@theme {
+  --color-white-smoke: whitesmoke;
 }
