@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 import { Node, getBinaryTime } from "./helpers";
+import "./App.css";
 
 const date = new Date();
 
@@ -41,18 +41,14 @@ export function App() {
 function Bit({ node }: { node?: Node<number> }) {
   if (!node) return;
 
-  const style = node.data ? { transform: "rotateX(180deg)" } : undefined;
-
   return (
     <>
       <figure
-        className="h-10 w-6 md:h-36 md:w-24 bg-white-smoke dark:bg-slate-700 text-4xl md:text-7xl font-medium text-slate-800 dark:text-white-smoke bit-box"
-        style={style}
+        className="h-10 w-6 md:h-36 md:w-24 text-4xl md:text-7xl font-medium text-slate-800 dark:text-white-smoke bit-box"
+        style={node.data ? { transform: "rotateY(180deg)" } : undefined}
       >
-        <div className="bit-box_content" style={style}>
-          <div className="flex items-center justify-center bit-front">0</div>
-          <div className="flex items-center justify-center bit-back">1</div>
-        </div>
+        <div className="bit-front">0</div>
+        <div className="bit-back">1</div>
       </figure>
 
       <Bit node={node.next} />
