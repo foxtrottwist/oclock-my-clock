@@ -1,21 +1,9 @@
-import { useEffect, useState } from "react";
 import { Node, getBinaryTime } from "./helpers";
 import "./App.css";
+import { useSynchronizedTimeout } from "./useSynchronizedTimeout";
 
 export function App() {
-  const [time, setTime] = useState(getBinaryTime);
-
-  useEffect(() => {
-    const timeoutID = setTimeout(
-      () => {
-        setTime(getBinaryTime());
-      },
-      60000 - (Date.now() % 60000),
-    );
-    return () => {
-      clearTimeout(timeoutID);
-    };
-  }, [time]);
+  const time = useSynchronizedTimeout(60000, getBinaryTime);
 
   return (
     <>
