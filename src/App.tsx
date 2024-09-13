@@ -2,20 +2,20 @@ import { useEffect, useState } from "react";
 import { Node, getBinaryTime } from "./helpers";
 import "./App.css";
 
-const date = new Date();
-
 export function App() {
   const [time, setTime] = useState(getBinaryTime);
 
   useEffect(() => {
-    const handle = setInterval(() => {
-      setTime(getBinaryTime());
-    }, 60 - date.getSeconds());
-
+    const timeoutID = setTimeout(
+      () => {
+        setTime(getBinaryTime());
+      },
+      60000 - (Date.now() % 60000),
+    );
     return () => {
-      clearInterval(handle);
+      clearTimeout(timeoutID);
     };
-  }, []);
+  }, [time]);
 
   return (
     <>
